@@ -1,0 +1,63 @@
+$white-faded: rgb(220, 220, 220);
+$break-small: 0;
+$break-medium: 640px;
+$break-large: 1024px;
+
+$white-faded: rgb(200, 200, 200);
+
+$teal-main: #22CFFF;
+$teal-faded: #00AEEE;
+
+div.is-drilldown {
+    max-width: 300px !important;
+}
+
+a {
+    &.menu-item {
+        height: 60px;
+        table {
+            height: 100%;
+            border-collapse: collapse;
+            vertical-align: middle;
+            td {
+                vertical-align: middle;
+                &:first-child {
+                    text-align: center;
+                    width: 30px;
+                }
+            }
+        }
+        width: 100%;
+        padding-left: 1.5em;
+        display: block;
+        color: $white-faded !important;
+        background-color: transparent !important;
+        &:after {
+            color: $white-faded !important;
+        }
+        &:link {
+            color: $white-faded !important;
+        }
+        &:visited {
+            color: $white-faded !important;
+        }
+        &:hover {
+            color: white !important;
+        }
+        &:active {
+            color: $teal-main !important;
+        }
+        &.selected {
+            background-color: $teal-main !important;
+            color: white !important;
+            border-left: 0.5em solid #1F192E;
+        }
+        i {
+            padding-right: 10px;
+        }
+        span {
+            text-transform: uppercase;
+        }
+
+    }
+}

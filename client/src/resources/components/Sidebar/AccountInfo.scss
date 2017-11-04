@@ -1,0 +1,57 @@
+$white-faded: rgb(220, 220, 220);
+$break-small: 0;
+$break-medium: 640px;
+$break-large: 1024px;
+
+$white-faded: rgb(200, 200, 200);
+
+$teal-main: #22CFFF;
+$teal-faded: #00AEEE;
+
+.button {
+    color: rgb(220, 220, 220);
+    border-radius: 2px !important;
+    background-color: $teal-faded !important;
+    &:hover {
+        transition: all 0.5s ease-out;
+        color: white;
+        background-color: $teal-main !important;
+    }
+}
+
+div.account-info {
+    text-align: center;
+    margin-bottom: 1em;
+    padding-bottom: 0;
+    border-bottom: 3px solid #1F192E;
+    h5 {
+        text-align: center;
+        color: white;
+        font-size: 1.5em;
+    }
+    img {
+        border-radius: 50%;
+        width: 40%;
+        margin-bottom: 0.5em;
+    }
+    table {
+        display: table;
+        max-height: 50px;
+        table-layout: fixed;
+        vertical-align: middle;
+        tr {
+            vertical-align: bottom;
+            max-height: 50px !important;
+            td {
+                word-wrap: break-word;
+                display: table-cell;
+                max-height: 50px;
+                vertical-align: bottom;
+                text-align: center;
+                button {
+                    max-height: 40px !important;
+                }
+            }
+        }
+    }
+}
