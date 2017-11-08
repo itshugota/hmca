@@ -17,6 +17,8 @@
     height: 50px;
     position: fixed;
     width: 100%;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .top-bar-left {
@@ -41,6 +43,7 @@
 }
 
 .bm-burger-button {
+  z-index: 2 !important;
   position: fixed;
   width: 36px;
   height: 30px;
@@ -69,6 +72,10 @@
   background: #373a47;
   padding: 1.7em 0;
   font-size: 1.15em;
+}
+
+.bm-menu-wrap {
+    z-index: 3 !important;
 }
 
 /* Morph shape necessary with bubble or elastic */

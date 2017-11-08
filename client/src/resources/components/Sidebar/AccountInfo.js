@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Foundation from 'react-foundation'
 import AccountInfoCSS from 'AccountInfo.scss'
 
 export class AccountInfo extends React.Component {

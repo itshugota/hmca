@@ -1,0 +1,152 @@
+$white-faded: rgb(220, 220, 220);
+$break-small: 0;
+$break-medium: 640px;
+$break-large: 1024px;
+
+$teal-main: #22CFFF;
+$teal-faded: #00AEEE;
+
+.qa-title {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    max-height: 60px;
+    padding: 10px;
+    background-color: white;
+    font-size: 2em;
+    border-bottom: 1px solid $white-faded;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
+    div {
+        &:first-child {
+            color: $teal-faded;
+            text-align: center;
+        }
+        &:nth-child(3), &:nth-child(4) {
+            text-align: right;
+            div {
+                display: inline-block;
+                width: auto;
+            }
+        }
+    }
+
+    button {
+        float: left;
+    }
+
+    form {
+        clear: none;
+        position: relative;
+        height: 40px;
+        width: 300px;
+        padding: 0;
+        margin: 0;
+        left: 50px;
+        input {
+            width: 50px;
+            position: absolute;
+        }
+        select {
+            position: absolute;
+            width: 190px;
+            left: 60px;
+        }
+    }
+}
+
+.question-form {
+    margin: 3em;
+    margin-top: 6em;
+    label, span {
+        font-size: 1em;
+    }
+}
+
+.question-main {
+    overflow-x: hidden;
+}
+
+.question-container {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2em;
+    padding: 1em;
+    background-color: white;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        box-shadow: 0 0 30px rgba(0,0,0,0.3);
+          top: -2px;
+          left: -2px;
+         img {
+             &.background-logo {
+                 opacity: 0.2;
+             }
+         }
+    }
+
+    h5 {
+        display: inline;
+        font-weight: bold;
+        color: $teal-faded;
+    }
+    div {
+    }
+    img {
+        width: 1.5em;
+        margin-right: 5px;
+        &.background-logo {
+            pointer-events: none;
+            position: absolute;
+            width: 45%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 0.1;
+            z-index: 0;
+            transition: opacity 0.3s ease-in-out;
+
+        }
+    }
+
+    .trash-button-container {
+        position: relative;
+        a {
+            position: absolute;
+            background-color: #FF6140 !important;
+            padding: 0.5em;
+            right: 0;
+            margin: auto;
+            &:hover {
+                background-color: #FF2C00 !important;
+            }
+        }
+    }
+
+    .question-title {
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .question-answer {
+        input {
+        }
+        label {
+            margin: 0 !important;
+            span {
+            }
+        }
+    }
+
+}

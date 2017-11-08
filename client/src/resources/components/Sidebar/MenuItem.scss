@@ -3,8 +3,6 @@ $break-small: 0;
 $break-medium: 640px;
 $break-large: 1024px;
 
-$white-faded: rgb(200, 200, 200);
-
 $teal-main: #22CFFF;
 $teal-faded: #00AEEE;
 
@@ -43,12 +41,13 @@ a {
         }
         &:hover {
             color: white !important;
+            background-color: #2A2A3F !important;
         }
         &:active {
             color: $teal-main !important;
         }
         &.selected {
-            background-color: $teal-main !important;
+            background-color: $teal-faded !important;
             color: white !important;
             border-left: 0.5em solid #1F192E;
         }

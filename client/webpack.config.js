@@ -22,7 +22,8 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react'],
+                    plugins: ['transform-decorators-legacy']
                 }
             },
             {
@@ -33,6 +34,17 @@ module.exports = {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
             },
+            {
+                test: /\.(woff2|woff|ttf|eot|svg|otf)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [
+                  {
+                    loader: 'url-loader',
+                    options: {
+                      limit: 8192
+                    }
+                  }
+                ]
+             }
         ]
     },
     plugins: [
@@ -50,9 +62,12 @@ module.exports = {
     resolve: {
         modules: [
             path.resolve('./src/resources/components'),
-            path.resolve('./src/resources/components/MainContent'),
+            path.resolve('./src/resources/components/Dashboard'),
             path.resolve('./src/resources/components/Sidebar'),
             path.resolve('./src/resources/components/Titlebar'),
+            path.resolve('./src/resources/components/QuestionArea'),
+            path.resolve('./src/resources/components/QuestionArea/QuestionAdding'),
+            path.resolve('./src/resources/components/TestArea'),
             path.resolve('./src/resources/views'),
             path.resolve('./src/resources/utils'),
             path.resolve('./src/resources/services'),

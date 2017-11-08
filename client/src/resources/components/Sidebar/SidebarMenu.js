@@ -9,7 +9,7 @@ export class SidebarMenu extends React.Component {
         const itemList = [
             {
                 id: 'sb-wall',
-                className: 'selected',
+                className: '',
                 content: 'Tường',
                 icon: 'dashboard',
                 hasSubmenu: false,
@@ -25,7 +25,7 @@ export class SidebarMenu extends React.Component {
                 subMenus: [
                     {
                         id: 'sb-question-add',
-                        className: '',
+                        className: 'selected',
                         content: 'Thêm câu hỏi',
                         icon: 'plus',
                         onClick: ''

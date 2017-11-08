@@ -1,0 +1,6 @@
+digraph QAHierachy {
+    QATitle;
+    QAMain -> QAForm -> QAFinalQuestion;
+    QAFinalQuestion -> QAQuestionTitle;
+    QAFinalQuestion -> QAQuestionAnswer;
+}

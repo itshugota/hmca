@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 export class Titlebar extends React.Component {
     render () {
         return (
-            <div className="top-bar" id="responsive-menu">
+            <div className="top-bar animated slideInDown" id="responsive-menu">
               <div className="top-bar-left">
                 <ul className="menu">
                   <li><input type="search" placeholder="Trợ giúp từ Alex" /></li>
