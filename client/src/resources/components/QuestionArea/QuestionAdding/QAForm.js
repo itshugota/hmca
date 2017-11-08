@@ -7,12 +7,16 @@ export class QAForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionsData: Array(this.props.questionN).fill(
+            questionsData: Array(1).fill(
                 {
                     questionTitle: '',
                     answers: Array(this.props.answerN).fill({content: ''})
                 }
-            )
+            ),
+            questionN: 1,
+            undoStack: [],
+            isAnUndoUpdate: false,
+            redoStack: []
         }
     }
 
@@ -20,7 +24,7 @@ export class QAForm extends React.Component {
         // i: Question No. i + 1
         let questionsDataCopy = this.state.questionsData;
         questionsDataCopy[i].questionTitle = value;
-        this.setState({questionsData: questionsDataCopy});
+        this.setState({questionsData: questionsDataCopy, isAnUndoUpdate: false});
     }
 
     handleAnswerChange(i, j, value) {
@@ -28,21 +32,44 @@ export class QAForm extends React.Component {
         // j: Question's Answer No. i + 1
         let questionsDataCopy = this.state.questionsData;
         questionsDataCopy[i].answers[j] = {answerContent: value};
-        this.setState({questionsData: questionsDataCopy});
+        this.setState({questionsData: questionsDataCopy, isAnUndoUpdate: false});
     }
 
     handleDelete(i) {
         // i: Question No. i + 1
         let questionsDataCopy = this.state.questionsData;
         questionsDataCopy = questionsDataCopy.filter((s, _i) => _i != i);
-        this.setState({questionsData: questionsDataCopy});
-        this.props.onDelete();
+        let newQuestionN = this.state.questionN - 1;
+        this.setState({questionsData: questionsDataCopy, questionN: newQuestionN, isAnUndoUpdate: false});
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.isAnUndoUpdate) {
+            console.log("It's not an undo update");
+            return false;
+        }
+        console.log("It's an undo update");
+        return true;
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.needUpdate) { // Number of Questions should change
+            let newValue = parseInt(this.state.questionN) + parseInt(nextProps.questionAddN);
+            this.setState({questionN: newValue});
+            this.props.onFinishChange();
+        }
+        if (!this.state.isAnUndoUpdate) {
+            let undoStackCopy = this.state.undoStack;
+            console.log(this.state.questionsData);
+            undoStackCopy.push([this.state.questionsData, this.state.questionN]);
+            this.setState({undoStack: undoStackCopy, isAnUndoUpdate: true});
+        }
     }
 
     render() {
         let questionsDataCopy = this.state.questionsData;
         let isUpdateNeeded = false;
-        [...Array(this.props.questionN)].map((x, i) => {
+        [...Array(this.state.questionN)].map((x, i) => {
                 if (i >= this.state.questionsData.length) {
                     isUpdateNeeded = true;
                     questionsDataCopy[i] = {
@@ -54,7 +81,7 @@ export class QAForm extends React.Component {
         );
         if (isUpdateNeeded) this.setState({questionsData: questionsDataCopy});
 
-        const questionList = [...Array(this.props.questionN)].map((x, i) => {
+        const questionList = [...Array(this.state.questionN)].map((x, i) => {
                 return <QAFinalQuestion questionI1={i + 1} questionTitle={this.state.questionsData[i].questionTitle} answerN={this.props.answerN} answers={this.state.questionsData[i].answers}
                 onTitleChange={this.handleTitleChange.bind(this)} onAnswerChange={this.handleAnswerChange.bind(this)}
                 onDelete={this.handleDelete.bind(this)}/>

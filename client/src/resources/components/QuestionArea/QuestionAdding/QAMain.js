@@ -10,10 +10,10 @@ export class QAMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            questionN: 1,
+            needUpdate: false,
             questionAddN: 1
         }
-        this.handleChange = this.handleChange.bind(this);
+        this.handleNOQChange = this.handleNOQChange.bind(this);
     }
 
     @keydown('ctrl+z')
@@ -22,27 +22,25 @@ export class QAMain extends React.Component {
     }
 
     handleClick() {
-        let newValue = parseInt(this.state.questionN) + parseInt(this.state.questionAddN);
-        this.setState({questionN: newValue});
+        this.setState({needUpdate: true});
         NotificationManager.success(this.state.questionAddN + " câu hỏi mới đã được thêm vào cuối", "Thêm câu hỏi thành công!", 5000, () => {document.getElementById("slide-to").scrollIntoView()});
     }
 
-    handleChange(e) {
+    handleNOQChange(e) {
         this.setState({questionAddN: e.target.value});
     }
 
-    handleDelete() {
-        let newValue = parseInt(this.state.questionN) - 1;
-        this.setState({questionN: newValue});
+    handleDataChange() {
+        this.setState({needUpdate: false});
     }
 
     render() {
         return (
             <section class="question-main animated">
                 <QATitle questionAddN={this.state.questionAddN}
-                 onClick={() => this.handleClick()} onChange={this.handleChange} />
-                <QAForm questionN={this.state.questionN} answerN={4}
-                onDelete={this.handleDelete.bind(this)}/>
+                 onClick={() => this.handleClick()} onChange={this.handleNOQChange} />
+                <QAForm needUpdate={this.state.needUpdate} answerN={4} questionAddN={this.state.questionAddN}
+                onFinishChange={this.handleDataChange.bind(this)}/>
             </section>
         );
     }
