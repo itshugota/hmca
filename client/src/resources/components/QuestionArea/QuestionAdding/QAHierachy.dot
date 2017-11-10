@@ -1,5 +1,5 @@
 digraph QAHierachy {
-    QATitle;
+    QAMain -> QATitle;
     QAMain -> QAForm -> QAFinalQuestion;
     QAFinalQuestion -> QAQuestionTitle;
     QAFinalQuestion -> QAQuestionAnswer;

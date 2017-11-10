@@ -6,7 +6,13 @@ $white-faded: rgb(220, 220, 220);
   font-family: 'Yanone Kaffeesatz', sans-serif !important;
 }
 
+html {
+    min-height: 100vh;
+    max-height: auto;
+}
+
 body {
+    min-height: 100vh;
     max-height: auto;
 }
 

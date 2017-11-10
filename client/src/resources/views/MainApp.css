@@ -7,10 +7,32 @@
     margin-top: 0;
     background-color: rgb(230, 230, 230);
     height: 100%;
+    max-height: auto;
 }
 
 #main-content {
     padding-top: 50px;
+}
+
+.displayed {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.limited-height {
+    overflow: hidden !important;
+}
+
+.limited-height .page-wrap {
+    overflow: hidden !important;
+}
+
+.limited-height #outer-container {
+    overflow: hidden !important;
+    height: 100vh !important;
 }
 
 .top-bar {

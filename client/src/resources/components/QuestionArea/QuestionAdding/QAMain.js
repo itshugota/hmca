@@ -3,31 +3,23 @@ import ReactDOM from 'react-dom'
 import QuestionAreaSCSS from 'QuestionArea.scss'
 import {QAForm} from 'QAForm'
 import {QATitle} from "QATitle"
-import {NotificationContainer, NotificationManager} from 'react-notifications'
-import keydown, { Keys } from 'react-keydown';
 
 export class QAMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             needUpdate: false,
-            questionAddN: 1
+            questionAddN: 1,
         }
         this.handleNOQChange = this.handleNOQChange.bind(this);
     }
 
-    @keydown('ctrl+z')
-    toggleHello() {
-        console.log("Hello");
-    }
-
-    handleClick() {
+    handleClick(selectedQuestionType) {
         this.setState({needUpdate: true});
-        NotificationManager.success(this.state.questionAddN + " câu hỏi mới đã được thêm vào cuối", "Thêm câu hỏi thành công!", 5000, () => {document.getElementById("slide-to").scrollIntoView()});
     }
 
-    handleNOQChange(e) {
-        this.setState({questionAddN: e.target.value});
+    handleNOQChange(value) {
+        this.setState({questionAddN: value});
     }
 
     handleDataChange() {
@@ -36,7 +28,7 @@ export class QAMain extends React.Component {
 
     render() {
         return (
-            <section class="question-main animated">
+            <section className={"question-main animated " + this.props.display}>
                 <QATitle questionAddN={this.state.questionAddN}
                  onClick={() => this.handleClick()} onChange={this.handleNOQChange} />
                 <QAForm needUpdate={this.state.needUpdate} answerN={4} questionAddN={this.state.questionAddN}
