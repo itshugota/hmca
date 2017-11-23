@@ -33,7 +33,7 @@ export class MainApp extends React.Component {
         } else if (id == 'sb-question-add') {
             this.setState({QAMainDisplay: 'displayed'})
         } else if (id == 'sb-question-search') {
-            this.setState({QEMainDisplay: 'dispalyed'})
+            this.setState({QEMainDisplay: 'displayed'})
         }
     }
 

@@ -43,7 +43,7 @@ export class QAForm extends React.Component {
         }
     }
 
-    @keydown('ctrl+y')
+    @keydown('ctrl+m')
     redo() {
         let lastState = redoStack.pop();
         if (lastState) {
@@ -94,7 +94,6 @@ export class QAForm extends React.Component {
         let questionsDataCopy = this.state.questionsData;
         questionsDataCopy[i].correctAnswer = value;
         this.setState({questionsData: questionsDataCopy});
-        console.log(this.state.questionsData[i].correctAnswer);
     }
 
     handleDelete(i) {
@@ -104,6 +103,29 @@ export class QAForm extends React.Component {
         let newQuestionN = this.state.questionN - 1;
         this.snapShot();
         this.setState({questionsData: questionsDataCopy, questionN: newQuestionN});
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        let data = JSON.stringify(this.state.questionsData);
+        console.log("sent");
+        var jqxhr = $.ajax({
+            type: 'POST',
+            url: '../../server/php/questionArea/question-add.php',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: data,
+        });
+        jqxhr.done(function(response) {
+            console.log(response);
+        });
+        jqxhr.fail(function(xhr, textStatus, errorThrown) {
+             console.log(<errorThrown></errorThrown> + " " + xhr + " " + textStatus);
+             console.warn(xhr.responseText);
+         });
+        jqxhr.always(function() {
+          //console.log(data);
+        });
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -153,12 +175,12 @@ export class QAForm extends React.Component {
                 </div>
               </div>
               {questionList}
-              <div className="grid-x grid-padding-x" id="slide-to">
+              <div className="grid-x" id="slide-to">
                 <fieldset className="small-6 cell animated bounceInRight">
-                  <button className="button" type="submit" value="Submit">Submit</button>
+                  <button className="button" onClick={this.handleSubmit.bind(this)} value="Submit">Xác nhận thêm câu hỏi</button>
                 </fieldset>
                 <fieldset className="small-6 cell animated bounceInRight">
-                  <button className="button" type="reset" value="Reset">Reset</button>
+                  <button className="button" type="reset" value="Reset">Reset lại tất cả</button>
                 </fieldset>
               </div>
             </form>
