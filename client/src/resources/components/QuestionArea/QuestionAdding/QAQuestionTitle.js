@@ -13,7 +13,7 @@ export class QAQuestionTitle extends React.Component {
               <div class="small-12 cell">
                 <label>
                   <span>Đề câu hỏi</span>
-                  <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Nhập đề câu hỏi ở đây" value={this.props.questionTitle} />
+                  <textarea type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Nhập đề câu hỏi ở đây" value={this.props.questionTitle} />
                   <span className="form-error">
                     Không được để trống đề câu hỏi!
                   </span>
