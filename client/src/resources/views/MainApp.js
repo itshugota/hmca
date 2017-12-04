@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {SidebarMenu} from 'SidebarMenu'
 import {Titlebar} from 'Titlebar'
 import {QAMain} from 'QAMain'
+import {QSMain} from 'QSMain'
 import {NotificationContainer, NotificationManager} from 'react-notifications'
 
 export class MainApp extends React.Component {
@@ -12,7 +13,7 @@ export class MainApp extends React.Component {
         this.state = {
             DashboardDisplay: 'displayed',
             QAMainDisplay: 'hidden',
-            QEMainDisplay: 'hidden'
+            QSMainDisplay: 'hidden'
         }
 
         this.refreshDisplay = this.refreshDisplay.bind(this);
@@ -22,7 +23,7 @@ export class MainApp extends React.Component {
         this.setState({
             DashboardDisplay: 'hidden',
             QAMainDisplay: 'hidden',
-            QEMainDisplay: 'hidden'
+            QSMainDisplay: 'hidden'
         });
     }
 
@@ -33,7 +34,7 @@ export class MainApp extends React.Component {
         } else if (id == 'sb-question-add') {
             this.setState({QAMainDisplay: 'displayed'})
         } else if (id == 'sb-question-search') {
-            this.setState({QEMainDisplay: 'displayed'})
+            this.setState({QSMainDisplay: 'displayed'})
         }
     }
 
@@ -45,6 +46,7 @@ export class MainApp extends React.Component {
                     <Titlebar />
                     <section id="main-content">
                         <QAMain display={this.state.QAMainDisplay}/>
+                        <QSMain display={this.state.QSMainDisplay}/>
                     </section>
                 </main>
                 <NotificationContainer/>

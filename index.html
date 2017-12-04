@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMCA</title>
+    <link rel="shortcut icon" href="./img/logo.png" />
+    <link rel="stylesheet" href="./css/framework/foundation.css">
+    <link rel="stylesheet" href="./css/library/animate.css">
+    <link rel="stylesheet" href="./css/landing-page.css">
+</head>
+
+<body>
+    <div class="reveal" id="register-form" data-reveal>
+        <img src="img/logo.svg">
+        <h3>Đăng ký tài khoản</h3>
+        <form data-abide="ajax" novalidate method="post" id="register-form-real">
+            <div class="row">
+                <div class="columns">
+                    <div data-abide-error class="alert callout" style="display: none;">
+                        <p><i class="fi-alert"></i> Biểu mẫu đăng ký của bạn có lỗi!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label>Email
+                        <input type="text" name="register-user-email" placeholder="example@gmail.com" aria-describedby="registerHelpText" required pattern="email">
+                        <span class="form-error">
+                          Email bạn đã nhập không đúng định dạng!
+                        </span>
+                        <span class="form-error" id="register-email-warning" style="display: none !important;">
+                          Email bạn đã nhập đã được người khác đăng ký!
+                        </span>
+                    </label>
+                    <p class="help-text" id="exampleHelpText">Email sẽ đồng thời là tài khoản đăng nhập.</p>
+                </div>
+                <div class="small-12 columns">
+                    <label>Mật khẩu
+                        <input type="password" id="register-password" name="register-user-password" placeholder="yeti4preZ" aria-describedby="registerHelpText" required >
+                        <span class="form-error">
+                          Bạn bắt buộc phải điền mật khẩu!
+                        </span>
+                    </label>
+                    <p class="help-text" id="exampleHelpText">Vui lòng nhập mật khẩu cho tài khoản.</p>
+                </div>
+                <div class="small-12 columns">
+                    <label>Xác nhận mật khẩu
+                <input type="password" placeholder="yeti4preZ" aria-describedby="registerHelpText2" required pattern="alpha_numeric" data-equalto="register-password">
+                <span class="form-error">
+                  Xác nhận mật khẩu không trùng khớp!
+                </span>
+              </label>
+                    <p class="help-text" id="exampleHelpText2">Vui lòng nhập lại mật khẩu để xác nhận.</p>
+                </div>
+            </div>
+            <div class="row">
+                <fieldset class="small-12 columns">
+                    <label>Bạn là một...
+                        <input style="margin-left: 10px;" type="radio" name="register-user-role" value="teacher" id="roleTeacher"><label for="roleTeacher">Giáo viên</label>
+                    <input type="radio" name="register-user-role" value="student" id="roleStudent" required><label for="roleStudent">Học sinh</label>
+                    </label>
+                </fieldset>
+            </div>
+            <div class="grid-x">
+                <fieldset class="small-6 cell">
+                    <button class="button" type="reset" value="Reset">Nhập lại</button>
+                </fieldset>
+                <fieldset class="small-6 cell">
+                    <button class="button" type="submit" value="Submit" name="btn-register" id="btn-register">Đăng ký</button>
+                </fieldset>
+            </div>
+        </form>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="reveal" id="login-form" data-reveal>
+        <img src="img/logo.svg">
+        <h3>Đăng nhập</h3>
+        <form data-abide="ajax" novalidate method="post" id="login-form-real">
+            <div class="row">
+                <div class="columns">
+                    <div data-abide-error class="alert callout" style="display: none;">
+                        <p><i class="fi-alert"></i> Biểu mẫu đăng nhập của bạn có lỗi!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="small-12 columns">
+                    <label>Email
+                        <input type="text" name="login-user-email" placeholder="example@gmail.com" aria-describedby="exampleHelpText" required pattern="email">
+                        <span class="form-error">
+                          Email bạn đã nhập không đúng định dạng!
+                        </span>
+                        <span class="form-error" id="login-email-warning" style="display: none !important;">
+                          Email bạn đã nhập không tồn tại!
+                        </span>
+                    </label>
+                    <p class="help-text" id="loginHelpText">Email sẽ đồng thời là tài khoản đăng nhập.</p>
+                </div>
+                <div class="small-12 columns">
+                    <label>Mật khẩu
+                        <input type="password" name="login-user-password" id="password" placeholder="yeti4preZ" aria-describedby="exampleHelpText" required >
+                        <span class="form-error">
+                          Bạn bắt buộc phải điền mật khẩu!
+                        </span>
+                        <span class="form-error" id="login-password-warning" style="display: none;">
+                          Bạn đã nhập sai mật khẩu!
+                        </span>
+                    </label>
+                    <p class="help-text" id="loginHelpText2">Vui lòng nhập mật khẩu cho tài khoản.</p>
+                </div>
+            </div>
+            <div class="grid-x">
+                <fieldset class="small-6 cell">
+                    <button class="button" type="reset" value="Reset">Nhập lại</button>
+                </fieldset>
+                <fieldset class="small-6 cell">
+                    <button class="button" type="submit" value="Submit" name="btn-login" id="btn-login">
+                        <span>Đăng nhập</span>
+                        <img src="img/loading.svg">
+                    </button>
+                </fieldset>
+            </div>
+            <div class="grid-x">
+                <p class="small-12 cell help-text" style="text-align: right">Bạn chưa có tài khoản? Bấm vào
+                    <a id="register-link" href="javascript:void(0)" data-open="register-form">ĐÂY</a> để đăng ký.
+                </p>
+            </div>
+        </form>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <section class="intro-sec">
+        <div class="title-bar" data-responsive-toggle="intro-menu" data-hide-for="large">
+            <button class="menu-icon" type="button" data-toggle></button>
+            <div class="title-bar-title">Danh mục</div>
+        </div>
+        <div class="top-bar" id="intro-menu" data-animate="hinge-in-from-top spin-out">
+            <div class="top-bar-left">
+                <div class="logo-container">
+                    <img src="img/logo.svg">
+                    <img src="img/logo-text.svg">
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu align-right">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Cách sử dụng</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li>
+                        <button class="button large" id="login-btn--1" data-open="login-form">ĐĂNG NHẬP</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button class="button large" id="login-btn--2" data-open="login-form">ĐĂNG NHẬP</button>
+
+        <div class="intro__desc">
+            <h3>XÂY DỰNG CHO</h5>
+            <h1>KỲ THI TRUNG HỌC PHỔ THÔNG QUỐC GIA</h1>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho toàn bộ các môn trong kỳ thi TPHTQG: Toán, Lý, Hóa, Văn, Anh, Sử, Địa...</h5>
+            <button class="button large animated pulse infinite" data-open="register-form">THỬ DÙNG NGAY</button>
+            </div>
+
+            <div class="intro__footer">
+                <div class="intro__image-holder">
+                    <img class="animated fadeInLeft" src="./img/IntroPhone2.jpg">
+                    <img class="animated fadeInDown" src="./img/IntroPhone1.jpg">
+                    <img class="animated fadeInRight" src="./img/IntroPhone3.jpg">
+                </div>
+            </div>
+    </section>
+
+    <section class="features--intro grid-x grid-padding-x">
+        <div class="features--intro__box medium-3 small-6 cell">
+            <img src="img/smile.svg">
+            <h3>DỄ SỬ DỤNG</h3>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho toàn bộ các môn trong kỳ thi TPHTQG: Toán, Lý, Hóa, Văn, Anh, Sử, Địa...</h5>
+        </div>
+        <div class="features--intro__box medium-3 small-6 cell">
+            <img src="img/illumination.svg">
+            <h3>THÔNG MINH</h3>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho toàn bộ các môn trong kỳ thi TPHTQG: Toán, Lý, Hóa, Văn, Anh, Sử, Địa...</h5>
+        </div>
+        <div class="features--intro__box medium-3 small-6 cell">
+            <img src="img/bolt.svg">
+            <h3>NHANH CHÓNG</h3>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho toàn bộ các môn trong kỳ thi TPHTQG: Toán, Lý, Hóa, Văn, Anh, Sử, Địa...</h5>
+        </div>
+        <div class="features--intro__box medium-3 small-6 cell">
+            <img src="img/deal.svg">
+            <h3>TIN CẬY</h3>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho toàn bộ các môn trong kỳ thi TPHTQG: Toán, Lý, Hóa, Văn, Anh, Sử, Địa...</h5>
+        </div>
+    </section>
+
+    <section class="features--details">
+        <div class="features--details__header">
+            <h1>Các Chức Năng Nổi Bật</h1>
+            <hr>
+            <h5>HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.</h5>
+        </div>
+        <div class="features--details__row grid-x grid-padding-x">
+            <div class="features--details__desc medium-6 cell">
+                <h3>Tạo ra một đề thi chỉ trong 5 phút</h3>
+                <hr>
+                <h5>
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                </h5>
+            </div>
+            <div id="feature-1" class="features--details__image-holder medium-6 cell centered">
+                <img src="./img/Feature1.png" width="100%">
+                <img class="var--1" src="./img/Feature1-1.png" width="100%">
+            </div>
+        </div>
+        <div class="features--details__row grid-x grid-padding-x">
+            <div id="feature-2" class="features--details__image-holder medium-6 cell centered">
+                <img src="./img/Feature2.png" width="100%">
+                <img class="var--2" src="./img/Feature2-2.png" width="100%">
+            </div>
+            <div class="features--details__desc medium-6 cell">
+                <h3>Lưu trữ và tổ chức những câu hỏi đã soạn</h3>
+                <hr>
+                <h5>
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                </h5>
+            </div>
+        </div>
+        <div class="features--details__row grid-x grid-padding-x">
+            <div class="features--details__desc medium-6 cell">
+                <h3>Sử dụng câu hỏi của tác giả khác</h3>
+                <hr>
+                <h5>
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                    HMCA là hệ thống ngân hàng câu hỏi hỗ trợ tốt nhất hiện nay cho kỳ thi TPHTQG.
+                </h5>
+            </div>
+            <div id="feature-3" class="features--details__image-holder medium-6 cell centered">
+                <img src="./img/Feature3.png" width="50%">
+                <img class="var--3" src="./img/Feature3-3.png" width="100%">
+                <img class="var--4" src="./img/Feature3-3.png" width="100%">
+            </div>
+        </div>
+    </section>
+
+    <script src="./js/vendor/jquery.js"></script>
+    <script src="./js/vendor/what-input.js"></script>
+    <script src="./js/vendor/foundation.js"></script>
+    <script src="./js/jqueryStyle.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/login/login-process.js"></script>
+    <script src="./js/login/register-process.js"></script>
+</body>
+
+</html>

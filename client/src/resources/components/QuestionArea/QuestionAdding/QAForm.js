@@ -6,21 +6,29 @@ import keydown, { Keys } from 'react-keydown';
 import {NotificationContainer, NotificationManager} from 'react-notifications'
 
 var undoStack = [], redoStack = [];
+
+function getQuestionsDataJSON() {
+    return {
+        questionTitle: '',
+        answers: Array(4).fill({content: ''}),
+        correctAnswer: 0,
+        questionExplanation: '',
+        questionType: '',
+        privacy: 'private'
+    }
+}
+
+function getInitialState() {
+    return {
+        questionsData: Array(1).fill(getQuestionsDataJSON()),
+        questionN: 1,
+    }
+}
+
 export class QAForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            questionsData: Array(1).fill(
-                {
-                    questionTitle: '',
-                    answers: Array(this.props.answerN).fill({content: ''}),
-                    correctAnswer: 0,
-                    privacy: 'private'
-                }
-            ),
-            questionN: 1,
-        }
-
+        this.state = getInitialState();
         this.undo = this.undo.bind(this);
         this.redo = this.redo.bind(this);
         this.snapShot = this.snapShot.bind(this);
@@ -75,6 +83,13 @@ export class QAForm extends React.Component {
         this.setState({questionsData: questionsDataCopy});
     }
 
+    handleTypeChange(i, type) {
+        // i: Question No. i + 1
+        let questionsDataCopy = this.state.questionsData;
+        questionsDataCopy[i].questionType = type;
+        this.setState({questionsData: questionsDataCopy});
+    }
+
     handleTitleChange(i, value) {
         // i: Question No. i + 1
         let questionsDataCopy = this.state.questionsData;
@@ -86,7 +101,14 @@ export class QAForm extends React.Component {
         // i: Question No. i + 1
         // j: Question's Answer No. i + 1
         let questionsDataCopy = this.state.questionsData;
-        questionsDataCopy[i].answers[j] = {answerContent: value};
+        questionsDataCopy[i].answers[j] = {content: value};
+        this.setState({questionsData: questionsDataCopy});
+    }
+
+    handleExplanationChange(i, value) {
+        // i: Question No. i + 1
+        let questionsDataCopy = this.state.questionsData;
+        questionsDataCopy[i].questionExplanation = value;
         this.setState({questionsData: questionsDataCopy});
     }
 
@@ -108,7 +130,6 @@ export class QAForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         let data = JSON.stringify(this.state.questionsData);
-        console.log("sent");
         var jqxhr = $.ajax({
             type: 'POST',
             url: '../../server/php/questionArea/question-add.php',
@@ -117,8 +138,10 @@ export class QAForm extends React.Component {
             data: data,
         });
         jqxhr.done(function(response) {
+            this.setState(getInitialState());
             console.log(response);
-        });
+            NotificationManager.success("", "Thêm câu hỏi vào hệ thống thành công!", 2000);
+        }.bind(this));
         jqxhr.fail(function(xhr, textStatus, errorThrown) {
              console.log(<errorThrown></errorThrown> + " " + xhr + " " + textStatus);
              console.warn(xhr.responseText);
@@ -144,23 +167,18 @@ export class QAForm extends React.Component {
         [...Array(this.state.questionN)].map((x, i) => {
                 if (i >= this.state.questionsData.length) {
                     isUpdateNeeded = true;
-                    questionsDataCopy[i] =
-                    {
-                        questionTitle: '',
-                        answers: Array(this.props.answerN).fill({content: ''}),
-                        correctAnswer: 0,
-                        privacy: 'private'
-                    };
+                    questionsDataCopy[i] = Object.assign({}, getQuestionsDataJSON());
                 }
             }
         );
         if (isUpdateNeeded) this.setState({questionsData: questionsDataCopy});
 
         const questionList = [...Array(this.state.questionN)].map((x, i) => {
-                return <QAFinalQuestion questionN={this.state.questionN} questionI1={i + 1} questionTitle={this.state.questionsData[i].questionTitle} answerN={this.props.answerN} answers={this.state.questionsData[i].answers} correctAnswer={this.state.questionsData[i].correctAnswer}
+                return <QAFinalQuestion questionN={this.state.questionN} questionI1={i + 1} questionTitle={this.state.questionsData[i].questionTitle} answerN={4} answers={this.state.questionsData[i].answers} correctAnswer={this.state.questionsData[i].correctAnswer}
                 privacy={this.state.questionsData[i].privacy}
-                onTitleChange={this.handleTitleChange.bind(this)} onPrivacyChange={this.handlePrivacyChange.bind(this)}
+                onTitleChange={this.handleTitleChange.bind(this)} onPrivacyChange={this.handlePrivacyChange.bind(this)} onTypeChange={this.handleTypeChange.bind(this)}
                 onAnswerChange={this.handleAnswerChange.bind(this)} onTickCorrectAnswer={this.handleTickCorrectAnswer.bind(this)}
+                onExplanationChange={this.handleExplanationChange.bind(this)}
                 onDelete={this.handleDelete.bind(this)}/>
             }
         );
@@ -177,7 +195,7 @@ export class QAForm extends React.Component {
               {questionList}
               <div className="grid-x" id="slide-to">
                 <fieldset className="small-6 cell animated bounceInRight">
-                  <button className="button" onClick={this.handleSubmit.bind(this)} value="Submit">Xác nhận thêm câu hỏi</button>
+                  <button className="button" type="submit" onClick={this.handleSubmit.bind(this)} value="Submit">Xác nhận thêm câu hỏi</button>
                 </fieldset>
                 <fieldset className="small-6 cell animated bounceInRight">
                   <button className="button" type="reset" value="Reset">Reset lại tất cả</button>

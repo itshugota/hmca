@@ -31,7 +31,7 @@ export class QAMain extends React.Component {
             <section className={"question-main animated " + this.props.display}>
                 <QATitle questionAddN={this.state.questionAddN}
                  onClick={() => this.handleClick()} onChange={this.handleNOQChange} />
-                <QAForm needUpdate={this.state.needUpdate} answerN={4} questionAddN={this.state.questionAddN}
+                <QAForm needUpdate={this.state.needUpdate} questionAddN={this.state.questionAddN}
                 onFinishChange={this.handleDataChange.bind(this)}/>
             </section>
         );

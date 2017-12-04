@@ -67,6 +67,7 @@ module.exports = {
             path.resolve('./src/resources/components/Titlebar'),
             path.resolve('./src/resources/components/QuestionArea'),
             path.resolve('./src/resources/components/QuestionArea/QuestionAdding'),
+            path.resolve('./src/resources/components/QuestionArea/QuestionSearching'),
             path.resolve('./src/resources/components/TestArea'),
             path.resolve('./src/resources/views'),
             path.resolve('./src/resources/utils'),

@@ -10,6 +10,25 @@ div.is-drilldown {
     max-width: 300px !important;
 }
 
+.js-drilldown-back {
+    a {
+        background-color: #3B3B4A !important;
+        color: $teal-faded !important;
+        transition: all 0.3s ease-in-out;
+        &:before {
+            border-color: transparent $teal-faded transparent white !important;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+            color: $teal-main !important;
+            &:before {
+                border-color: transparent $teal-main transparent white !important;
+            }
+        }
+    }
+}
+
 a {
     &.menu-item {
         height: 60px;

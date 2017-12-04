@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import QuestionAreaSCSS from 'QuestionArea.scss'
 
-export class QAQuestionTitle extends React.Component {
-    handleTitleChange(e) {
+export class QAQuestionExplanation extends React.Component {
+    handleExplanationChange(e) {
         this.props.onChange(this.props.questionI1 - 1, e.target.value);
     }
 
@@ -12,13 +12,13 @@ export class QAQuestionTitle extends React.Component {
             <div class="grid-x grid-padding-x question-title">
               <div class="small-12 cell">
                 <label>
-                  <span>Đề câu hỏi</span>
-                  <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Nhập đề câu hỏi ở đây" value={this.props.questionTitle} required/>
+                  <span>Giải thích</span>
+                  <textarea type="text" onChange={this.handleExplanationChange.bind(this)} placeholder="Nhập giải thích cho câu hỏi ở đây" value={this.props.questionExplanation} />
                   <span className="form-error">
-                    Không được để trống đề câu hỏi!
+                    Không được để trống giải thích câu hỏi!
                   </span>
                 </label>
-                <p class="help-text">Thử nhập đề câu hỏi theo mẫu sau: "She is _____ kindest woman I have ever met."</p>
+                <p class="help-text"></p>
               </div>
             </div>
         );
