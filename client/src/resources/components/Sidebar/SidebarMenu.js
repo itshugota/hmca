@@ -46,7 +46,7 @@ export class SidebarMenu extends React.Component {
                         {
                             id: 'sb-question-ad-search',
                             className: '',
-                            content: 'Tìm kiếm câu hỏi nâng cao',
+                            content: 'Tìm kiếm câu hỏi thông minh',
                             icon: 'search',
                         }
                     ],

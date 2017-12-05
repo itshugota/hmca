@@ -34,7 +34,7 @@ function warnWrongPassword() {
 }
 
 function processLoginSuccess() {
-    alert("Đăng nhập thành công!");
+    window.location.href = "client/dist/index.html"
 }
 
 $(document).on("formvalid.zf.abide", function(ev, frm) {

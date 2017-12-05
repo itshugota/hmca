@@ -11,8 +11,21 @@ export class QSContainer extends React.Component {
         }
     }
 
-    handleSearchChange(e) {
-        this.props.onSearchChange(e.target.value);
+    handleContentSearchChange(e) {
+        this.props.onContentSearchChange(e.target.value);
+    }
+
+    handleTypeSearchChange(e) {
+        this.props.onTypeSearchChange(e.target.value);
+    }
+
+    handleSubjectSearchChange(e) {
+        this.props.onSubjectSearchChange(e.target.value);
+    }
+
+    handleSearchEnter(e) {
+        e.preventDefault();
+        this.props.onSearchEnter();
     }
 
     render() {
@@ -23,7 +36,7 @@ export class QSContainer extends React.Component {
                     <span>Nội dung câu hỏi</span>
                   </div>
                 <div className="small-9 medium-11 cell">
-                  <input type="text" onChange={this.handleSearchChange.bind(this)} placeholder="Nhập nội dung câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
+                  <input type="text" onChange={this.handleContentSearchChange.bind(this)} placeholder="Nhập nội dung câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
                 </div>
               </div>
               <div className="grid-x">
@@ -31,7 +44,7 @@ export class QSContainer extends React.Component {
                     <span>Dạng câu hỏi</span>
                   </div>
                 <div className="small-9 medium-11 cell">
-                  <input type="text" onChange={this.handleSearchChange.bind(this)} placeholder="Nhập dạng câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
+                  <input type="text" onChange={this.handleTypeSearchChange.bind(this)} placeholder="Nhập dạng câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
                 </div>
               </div>
               <div className="grid-x">
@@ -39,18 +52,19 @@ export class QSContainer extends React.Component {
                     <span>Môn</span>
                   </div>
                 <div className="small-9 medium-11 cell">
-                  <input type="text" onChange={this.handleSearchChange.bind(this)} placeholder="Nhập môn cho câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
+                  <input type="text" onChange={this.handleSubjectSearchChange.bind(this)} placeholder="Nhập môn cho câu hỏi cần tìm kiếm ở đây" value={this.props.questionTitle} required />
                 </div>
               </div>
               <div className="grid-x">
                   <fieldset className="small-4 cell animated bounceInRight">
-                    <button className="button search-button" type="submit" value="Submit">
+                    <button className="button search-button" type="submit" value="Submit" onClick={this.handleSearchEnter.bind(this)}>
                         <i className="fa fa-search" aria-hidden="true"></i>
                         Tìm kiếm
                     </button>
                   </fieldset>
               </div>
-              <QSTable />
+              <QSTable searchResultQuestions={this.props.searchResultQuestions}
+              research={() => this.props.onSearchEnter()}/>
             </form>
         );
     }

@@ -9,8 +9,13 @@ import {NotificationContainer, NotificationManager} from 'react-notifications'
 export class QAFinalQuestion extends React.Component {
     constructor(props) {
         super(props);
+        var displayClass = '';
+        if (props.simplified) {
+            displayClass = 'hidden';
+        }
         this.state = {
-            animation: 'animated bounceInLeft'
+            animation: 'animated bounceInLeft',
+            deleteBtnClass: displayClass
         };
     }
 
@@ -22,7 +27,6 @@ export class QAFinalQuestion extends React.Component {
             setTimeout(function() {
                 this.props.onDelete(this.props.questionI1 - 1);
                 this.setState({animation: 'animated bounceInUp'});
-                console.log
             }.bind(this), 400);
         }
     }
@@ -36,6 +40,8 @@ export class QAFinalQuestion extends React.Component {
     }
 
     render() {
+        console.log(this.props.simplified);
+
         const n = this.props.answerN;
         const answerList = (new Array(n).fill(null)).map((x, i) => {
                 return <QAQuestionAnswer title={"Đáp án " + (i + 1)} questionAnswerI={i} questionI1={this.props.questionI1}
@@ -43,6 +49,12 @@ export class QAFinalQuestion extends React.Component {
                 onAnswerChange={this.props.onAnswerChange} onTickCorrectAnswer={this.props.onTickCorrectAnswer}/>
             }
         );
+        let questionNumberTitle = 'Câu hỏi ';
+        if (this.props.simplified) {
+            questionNumberTitle += 'số ' + this.props.questionI1;
+        } else {
+            questionNumberTitle += this.props.id;
+        }
 
         return (
             <div className={"grid-x grid-padding-x question-container " + this.state.animation}>
@@ -53,7 +65,7 @@ export class QAFinalQuestion extends React.Component {
                             <div className="grid-x">
                                     <div className="medium-4 small-12 cell">
                                         <img src="./images/speech-bubble.svg" />
-                                        <h5>Câu hỏi số {this.props.questionI1}</h5>
+                                        <h5>{questionNumberTitle}</h5>
                                         <input type="radio" className="option-input teal xcheck radio" name={"privacy" + this.props.questionI1} id={"private" + this.props.questionI1} value={"private"} onChange={this.handlePrivacyChange.bind(this)} checked={this.props.privacy=='private'}/>
                                         <label for={"private" + this.props.questionI1}>Riêng tư</label>
                                         <input type="radio" className="option-input teal xcheck radio" name={"privacy" + this.props.questionI1} id={"public" + this.props.questionI1} value="public" onChange={this.handlePrivacyChange.bind(this)} checked={this.props.privacy=='public'}/>
@@ -64,7 +76,7 @@ export class QAFinalQuestion extends React.Component {
                                     </div>
                             </div>
                         </div>
-                        <div className="small-1 cell trash-button-container">
+                        <div className={"small-1 cell trash-button-container " + this.state.deleteBtnClass}>
                             <a href="javascript:void(0)" className="button" onClick={this.handleDelete.bind(this)}><i className="fa fa-trash"></i></a>
                         </div>
                     </div>

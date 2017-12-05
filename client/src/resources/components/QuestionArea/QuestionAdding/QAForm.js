@@ -22,6 +22,15 @@ function getInitialState() {
     return {
         questionsData: Array(1).fill(getQuestionsDataJSON()),
         questionN: 1,
+        simplified: 0
+    }
+}
+
+function getInitialSimplifiedState() {
+    return {
+        questionsData: Array(1).fill(getQuestionsDataJSON()),
+        questionN: 1,
+        simplified: 1
     }
 }
 
@@ -29,9 +38,15 @@ export class QAForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = getInitialState();
+        if (typeof props.simplified != 'undefined') {
+            if (props.simplified) {
+                this.state = getInitialSimplifiedState();
+            }
+        }
         this.undo = this.undo.bind(this);
         this.redo = this.redo.bind(this);
         this.snapShot = this.snapShot.bind(this);
+
     }
 
     @keydown('ctrl+b')
@@ -152,12 +167,14 @@ export class QAForm extends React.Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        if (nextProps.needUpdate) { // Number of Questions should change
-            let newValue = parseInt(this.state.questionN) + parseInt(nextProps.questionAddN);
-            this.snapShot();
-            this.setState({questionN: newValue});
-            this.props.onFinishChange();
-            NotificationManager.success(this.props.questionAddN + " câu hỏi mới đã được thêm vào cuối", "Thêm câu hỏi thành công!", 2000, () => {document.getElementById("slide-to").scrollIntoView()});
+        if (!this.state.simplified) {
+            if (nextProps.needUpdate) { // Number of Questions should change
+                let newValue = parseInt(this.state.questionN) + parseInt(nextProps.questionAddN);
+                this.snapShot();
+                this.setState({questionN: newValue});
+                this.props.onFinishChange();
+                NotificationManager.success(this.props.questionAddN + " câu hỏi mới đã được thêm vào cuối", "Thêm câu hỏi thành công!", 2000, () => {document.getElementById("slide-to").scrollIntoView()});
+            }
         }
     }
 
@@ -173,9 +190,16 @@ export class QAForm extends React.Component {
         );
         if (isUpdateNeeded) this.setState({questionsData: questionsDataCopy});
 
+        let firstBtn = <button className="button" type="submit" onClick={this.handleSubmit.bind(this)} value="Submit">Xác nhận thêm câu hỏi</button>;
+        let secondBtn = <button className="button" type="reset" value="Reset">Reset lại tất cả</button>;
+        if (this.state.simplified) {
+            firstBtn = <button className="button">Xác nhận chỉnh sửa</button>;
+            secondBtn = <button className="button">Hủy bỏ</button>;
+        }
         const questionList = [...Array(this.state.questionN)].map((x, i) => {
-                return <QAFinalQuestion questionN={this.state.questionN} questionI1={i + 1} questionTitle={this.state.questionsData[i].questionTitle} answerN={4} answers={this.state.questionsData[i].answers} correctAnswer={this.state.questionsData[i].correctAnswer}
+                return <QAFinalQuestion questionN={this.state.questionN} questionI1={i + 1} id={this.props.id} questionTitle={this.state.questionsData[i].questionTitle} answerN={4} answers={this.state.questionsData[i].answers} correctAnswer={this.state.questionsData[i].correctAnswer}
                 privacy={this.state.questionsData[i].privacy}
+                simplified={this.state.simplified}
                 onTitleChange={this.handleTitleChange.bind(this)} onPrivacyChange={this.handlePrivacyChange.bind(this)} onTypeChange={this.handleTypeChange.bind(this)}
                 onAnswerChange={this.handleAnswerChange.bind(this)} onTickCorrectAnswer={this.handleTickCorrectAnswer.bind(this)}
                 onExplanationChange={this.handleExplanationChange.bind(this)}
@@ -195,10 +219,10 @@ export class QAForm extends React.Component {
               {questionList}
               <div className="grid-x" id="slide-to">
                 <fieldset className="small-6 cell animated bounceInRight">
-                  <button className="button" type="submit" onClick={this.handleSubmit.bind(this)} value="Submit">Xác nhận thêm câu hỏi</button>
+                  {firstBtn}
                 </fieldset>
-                <fieldset className="small-6 cell animated bounceInRight">
-                  <button className="button" type="reset" value="Reset">Reset lại tất cả</button>
+                <fieldset className="small-6 cell animated bounceInRight align-right">
+                  {secondBtn}
                 </fieldset>
               </div>
             </form>

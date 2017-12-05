@@ -1,5 +1,6 @@
 <?php
-    $db_host = "mysql.hostinger.com";
+    //$db_host = "mysql.hostinger.com";
+    $db_host = "sql129.main-hosting.eu";
     $db_name = "u979146841_hmca";
     $db_user = "u979146841_hmca";
     $db_pass = "1029384756a";

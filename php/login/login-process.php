@@ -15,7 +15,7 @@ header("Content-Type: text/json; charset=utf8");
          $count = $stmt->rowCount();
 
          if ($count > 0) {
-             if ($row['MatKhau']==$password) {
+             if ($row['MatKhau'] == $password) {
                  echo "OK"; // log in
                  $_SESSION['userID'] = $row['MaND'];
              } else {
