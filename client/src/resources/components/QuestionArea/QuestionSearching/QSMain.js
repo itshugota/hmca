@@ -3,27 +3,16 @@ import ReactDOM from 'react-dom'
 import QuestionAreaSCSS from 'QuestionArea.scss'
 import {QSTitle} from 'QSTitle'
 import {QSContainer} from 'QSContainer'
-
-function getResultQuestionsJSON() {
-    return {
-        id: '',
-        title: '',
-        answers: Array(4).fill(''),
-        correctAnswer: -1,
-        explanation: '',
-        isPrivate: -1,
-        type: '',
-        subject: '',
-        author: ''
-    }
-}
+import {Question} from 'QuestionClass'
 
 function getInitialState() {
     return {
-        content: '',
-        type: '',
-        subject: '',
-        questions: Array(1).fill(getResultQuestionsJSON)
+        searchInfo: {
+            content: '',
+            type: '',
+            subject: ''
+        },
+        questions: Array(1).fill((new Question()).getJSONData())
     }
 }
 
@@ -31,20 +20,25 @@ export class QSMain extends React.Component {
     constructor(props) {
         super(props);
         this.state = getInitialState();
-
         this.handleSearchEnter = this.handleSearchEnter.bind(this);
     }
 
     handleContentSearchChange(value) {
-        this.setState({content: value})
+        let searchInfoCopy = this.state.searchInfo;
+        searchInfo.content = value;
+        this.setState({searchInfo: searchInfoCopy});
     }
 
     handleTypeSearchChange(value) {
-        this.setState({type: value})
+        let searchInfoCopy = this.state.searchInfo;
+        searchInfo.type = value;
+        this.setState({searchInfo: searchInfoCopy});
     }
 
     handleSubjectSearchChange(value) {
-        this.setState({subject: value})
+        let searchInfoCopy = this.state.searchInfo;
+        searchInfo.subject = value;
+        this.setState({searchInfo: searchInfoCopy});
     }
 
     handleSearchEnter() {

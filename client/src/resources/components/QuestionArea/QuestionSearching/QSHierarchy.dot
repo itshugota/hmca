@@ -1,6 +1,8 @@
 digraph QSHierachy {
-    QAMain -> QATitle;
-    QAMain -> QAForm -> QAFinalQuestion;
-    QAFinalQuestion -> QAQuestionTitle;
-    QAFinalQuestion -> QAQuestionAnswer;
+    QSMain -> QSTitle;
+    QSMain -> QSContainer;
+    QSContainer -> QSTable;
+    QSTable -> QSTableRow;
+    QSTable -> QSConfirmingDelete;
+    QSTable -> QSUpdatingQuestion;
 }
